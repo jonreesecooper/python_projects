@@ -30,10 +30,8 @@ def getData():
     with conn:
         cur = conn.cursor()
         cur.execute('SELECT col_filename FROM tbl_files WHERE col_filename LIKE "%txt"')
-        varTxt = cur.fetchall()
-        for item in varTxt:
-            msg = "Result 1: {}\nResult 2: {}".format(item[0],item[1])
-        print(msg)
+        varTxt = cur.fetchall() 
+    print("Result 1: {}\nResult 2: {}".format(varTxt[0][0],varTxt[1][0]))
     
 
 
