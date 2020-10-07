@@ -68,15 +68,14 @@ def onSelect(self,event):
     conn = sqlite3.connect('db_student_tracking.db')
     with conn:
         cursor = conn.cursor()
-        cursor.execute("""SELECT col_fname,col_lname,col_phone,col_email,col_course FROM tbl_student_tracking WHERE col_fullname = (?)""", [value])
+        cursor.execute("""SELECT col_fullname,col_phone,col_email,col_course FROM tbl_student_tracking WHERE col_fullname = (?)""", [value])
         varBody = cursor.fetchall()
         for data in varBody:
             self.list2.delete(0,END)
-            self.list2.insert(0,data[0])
+            self.list2.insert(END, data[0])
             self.list2.insert(END, data[1])
             self.list2.insert(END, data[2])
             self.list2.insert(END, data[3])
-            self.list2.insert(END, data[4])
 
 def addToList(self):
     var_fname = self.text_fname.get()
