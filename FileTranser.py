@@ -28,7 +28,7 @@ class ParentWindow(Frame):
         self.text2.grid(row=5,column=0,padx=(15,15),pady=(10,0))
         self.label_3=tk.Label(self.master,text="Run File Transfer")
         self.label_3.grid(row=6,column=0,padx=(15,0),pady=(10,0),sticky=W)
-        self.btn3 = tk.Button(self.master,width=12,height=2,text="Run",command=lambda: timestamp())
+        self.btn3 = tk.Button(self.master,width=12,height=2,text="Run",command=lambda: timestamp(self))
         self.btn3.grid(row=7,column=0,padx=(15,0),pady=(10,0), sticky=W)
 
 
@@ -42,12 +42,12 @@ def setDir(self):
     for data in destination:
        self.text2.insert(END,data[0])
 
-def listoffiles():
+def listoffiles(self):
     check = os.listdir(path = self.text1.get())
     return check
 
-def timestamp():
-    check = listoffiles()
+def timestamp(self):
+    check = listoffiles(self)
     newlist = []
     i = 0
     while i < len(check):
