@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Royal Hotels{% endblock %}
+{% block header %}Welcome to the Royal Hotels!{% endblock %}
+{% block content %}
+<div class="admin_panel">
+    <form name="ProductForm" method="POST" action="">
+        <!--methods are either POST or GET, POST is invisible, so nobody can see it
+        vs. get which sends information over browser unsecured. Post allows content
+        of form to be included in page without others being able to access-->
+        <div class="formObject">
+            {% csrf_token %}
+            <!-- this csrf_token is required for any form, helps keep it secure-->
+            <label for="menu_id">Select a product from the list to edit:</label>
+            <select id="menu_id" name="menu" onChange="top.location.href=this.options[this.selectedIndex].value;">
+            <!-- onChange is javascript, this.options refers to select tag, which has several options
+            this.selectedIndex means once option is selected from select, it becomes the value-->
+            {% for product in products %}
+                <option value="..//{{ product.pk }}/details/">{{ product.name }}</option>
+                <!--{{product.pk}} means as we are iterating through the list of products,
+                we write the primary key number.  Then /details/ means to add /details/ directory
+                and end of the url. i.e.
+                <option value="http://127.0.0.1:8000/8/details/" meatloaf></option> -->
+            {% endfor %}
+            </select>
+            <div class="fromBtn_container">
+                <a href=""><button type="button" class="btn">Create New Product</button></a>
+                <a href="{% url 'home' %}"><button type="button" class="btn">Logout of Profile</button></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+{% endblock %}

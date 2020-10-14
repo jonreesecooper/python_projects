@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Royal Hotels{% endblock %}
+{% block header %}Product Details{% endblock %}
+{% block content %}
+<div class="admin_panel">
+    <form name="ProductForm" method="POST" action="../details/">
+        # action, form will go back one directory and then go into details
+        <table>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form.as_table }}
+            <!-- if we get form information to us, we put it out as table
+            # paints template for us -->
+        </table>
+        <div class="frmBtn_container">
+            <ul>
+                <li><a href="../{{ form.pk }}delete/">DELETE</a></li>
+                <!-- go back one directory, will be forms primary key, and delete directory -->
+                <li><a href="{% url 'admin_console' $}">CANCEL</a></li>
+                <!-- these buttons will either delete the selected entry, or cancel
+                and return to the main page -->
+            </ul>
+        </div>
+
+    </form>
+</div>
+
+
+
+{% endblock %}
