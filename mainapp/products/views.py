@@ -1,3 +1,42 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Product
+from .forms import ProductForm
+# imported the productForm we just created
 
 # Create your views here.
+def admin_console(request):
+    products = Product.objects.all()
+    return render(request, 'products/products_page.html', {'products': products})
+    # created products variable, using objects.all() to get all entries
+    # then using render, making request, naming file to make request to, and naming desired variable
+
+def details(request, pk):
+    # request is the request issued by user, additional info is pk
+    pk = int(pk)
+    # converts string value of primary key into integer, pass it into pk variable
+    item = get_object_or_404(Product, pk=pk)
+    # go check for item in database, if not there give 404 error
+    # look at model of Product, use dictionary object pk=pk (key value pair)
+    # the pk value will be whichever selection the user selected
+    # that will then get stored in item
+    form = ProductForm(data=request.POST or None, instance=item)
+    # if they give information on form, its sent on POST method
+    # try and get information from that post
+    # if you can't, return none value
+    # if you can, the instance will be that item value
+    if request.method == 'POST':
+        if form.is_valid():
+            form2 = form.save(commit=False)
+            form2.save()
+            return redirect('admin_console')
+        # if the request.method is POST, check the form, if it is valid
+        # safe form into our database and return to products_page
+        else:
+            print(form.errors)
+    else:
+        return render(request, 'products/present_product.html', {'form': form})
+        # this is actually the initial value that will come up, a page yet to
+        # be created that allows you to make changes to selected product
+        # once those changes have been made or if request.method == POST
+        # comes into play
