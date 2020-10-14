@@ -1,0 +1,26 @@
+{% load static from staticfiles %}
+<!-- this is how we load from our settings and urls file -->
+<!DOCTYPE html>
+<html lang="en" class="bg_img">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- research viewport -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <!-- using google fonts for styling -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
+        <!-- this links our css file from our css directory into the html -->
+    </head>
+    <body>
+        <div class="page_container">
+            {% include "navbar.html" %}
+            <header class="header-title">
+                <h1>{% block header %}{% endblock %}</h1>
+            </header>
+            {% block content %}{% endblock %}
+        </div>
+        {% include "footer.html" %}
+    </body>
+</html>
