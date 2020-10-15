@@ -8,5 +8,8 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin_console', views.admin_console, name='admin_console'),
     path('<int:pk>/details/', views.details, name='details'),
-    # the int:pk defines the variable we set in our details method
+    path('<int:pk>/delete/', views.delete, name='delete'),
+    path('confirmDelete/', views.confirmed, name='confirmed'),
+    path('createRecord/', views.createRecord, name='createRecord'),
+
 ]
