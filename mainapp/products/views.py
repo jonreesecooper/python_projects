@@ -40,3 +40,50 @@ def details(request, pk):
         # be created that allows you to make changes to selected product
         # once those changes have been made or if request.method == POST
         # comes into play
+
+def delete(request, pk):
+    # function passes in request and variable of pk
+    pk = int(pk)
+    # set variable to integer
+    item = get_object_or_404(Product, pk=pk)
+    # set item equal to our selected pk from Product
+    if request.method == 'POST':
+        item.delete()
+        return redirect('admin_console')
+        # if the request came from user, delete item and return
+        # to admin_console
+    context = {'item': item,}
+    return render(request, 'products/confirmDelete.html', context)
+    # otherwise set context equal to item as a dictionary
+    # and upload confirmDelete page
+
+def confirmed(request):
+    if request.method == 'POST':
+        # creates form instance and binds data to it
+        form = ProductForm(request.POST or None)
+        if form.is_valid():
+            form.delete()
+            return redirect('admin_console')
+        # if the form is valid, delete entry and return to admin_console
+    else:
+        return redirect('admin_console')
+        # otherwise just return to admin console
+
+def createRecord(request):
+    # only paramenter is request object
+    form = ProductForm(request.POST or None)
+    # open ProductForm and get info from request
+    if form.is_valid():
+        form.save()
+        return redirect('admin_console')
+    else:
+        print(form.errors)
+        form = ProductForm()
+        # if form is valid save form and return to admin_console
+        # otherwise print out errors on the form
+        # send back blank form for them to fill out
+    context = {
+        'form': form,
+    }
+    return render(request, 'products/createRecord.html', context)
+
