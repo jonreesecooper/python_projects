@@ -3,7 +3,7 @@
 {% block header %}Product Details{% endblock %}
 {% block content %}
 <div class="admin_panel">
-    <form name="ProductForm" method="POST" action="../details/">
+    <form name="productForm" method="POST" action="../details/">
         # action, form will go back one directory and then go into details
         <table>
             {% csrf_token %}

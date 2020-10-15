@@ -15,7 +15,7 @@
             <!-- onChange is javascript, this.options refers to select tag, which has several options
             this.selectedIndex means once option is selected from select, it becomes the value-->
             {% for product in products %}
-                <option value="..//{{ product.pk }}/details/">{{ product.name }}</option>
+                <option value="../{{ product.pk }}/details/">{{ product.name }}</option>
                 <!--{{product.pk}} means as we are iterating through the list of products,
                 we write the primary key number.  Then /details/ means to add /details/ directory
                 and end of the url. i.e.
